@@ -33,7 +33,7 @@ class ChatNotifier extends _$ChatNotifier {
   /// 채팅 메시지 목록을 가져오는 함수
   Future<void> fetchChatMessageList() async {
     try {
-      final localMessages = _getAllChatMessageUseCase.execute(); // 로컬 메시지 로드
+      final localMessages = await _getAllChatMessageUseCase.execute(); // 로컬 메시지 로드
       state = state.copyWith(
         isLoading: false,
        rawMessageList: List.from(localMessages),

@@ -13,7 +13,7 @@ import 'layers/presentation/main/main_frame_view.dart';
 void main() async {
   /// 앱을 개발할 떄 비동기 작업을 수행 하고 그 결과를 기반 으로 앱을 초기화 해야 하는 경우
   /// Sharedpreferences 나 Firebase 와 같은 외부 소스 에서 데이터를 비동적 으로 로드 해야되는경우
-  ///  플랫폼 채널과 통신(네이티브 코드와 플러간 통신을 위해 플랫폼 채널을 설정 하는 경우)
+  /// 플랫폼 채널과 통신(네이티브 코드와 플러간 통신을 위해 플랫폼 채널을 설정 하는 경우)
   WidgetsFlutterBinding.ensureInitialized();
 
   /// Initialize the locator

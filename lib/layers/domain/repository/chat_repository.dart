@@ -6,5 +6,5 @@ abstract interface class ChatRepository {
 
 abstract interface class ChatLocalRepository {
   Future<void> addMessage(List<ChatMessage> message);
-  List<ChatMessage> getAllMessages();
+  Future<List<ChatMessage>> getAllMessages();
 }

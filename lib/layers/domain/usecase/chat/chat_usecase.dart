@@ -29,14 +29,14 @@ class AddChatMessageUseCase implements ParamUseCase<void, List<ChatMessage>> {
 }
 
 /// Local 채팅 메시지 모두 불러오는 유스케이스
-class GetAllChatMessageUseCase implements SyncUseCase<List<ChatMessage>, void> {
+class GetAllChatMessageUseCase implements UseCase<List<ChatMessage>, void> {
   final ChatLocalRepository _chatRepository;
 
   GetAllChatMessageUseCase([ChatLocalRepository? chatRepository])
       : _chatRepository = chatRepository ?? locator();
 
   @override
-  List<ChatMessage> execute() {
+  Future<List<ChatMessage>> execute() {
     return _chatRepository.getAllMessages();
   }
 }

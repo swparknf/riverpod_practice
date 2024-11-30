@@ -11,7 +11,6 @@ final addChatMessageUseCaseProvider = Provider<AddChatMessageUseCase>((ref) {
   return AddChatMessageUseCase();
 });
 
-
 final getAllChatMessageUseCaseProvider = Provider<GetAllChatMessageUseCase>((ref) {
   return GetAllChatMessageUseCase();
 });

@@ -37,9 +37,9 @@ class ChatLocalRepositoryImp implements ChatLocalRepository{
   }
 
   @override
-  List<ChatMessage> getAllMessages() {
+  Future<List<ChatMessage>> getAllMessages() async {
     try {
-      final response = _localDataSource.getAllMessages();
+      final response = await _localDataSource.getAllMessages();
       return ChatMapper.localToDomainList(response);
     } catch (e) {
       throw Exception('Failed to getAll local chat message : $e');
