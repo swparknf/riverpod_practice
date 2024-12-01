@@ -10,7 +10,7 @@
 - 언어: Dart
 - 상태 관리: Riverpod
 - 데이터베이스: Isar
-- 의존성 주입: GetIt
+- 의존성 주입: Riverpod
 
 ## 프로젝트 구조
 lib/layers/data/entity/chat_message_dao.dart: 채팅 메시지 데이터 모델 정의
