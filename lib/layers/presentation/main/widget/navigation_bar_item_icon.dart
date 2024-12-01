@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_practice/layers/presentation/main/main_frame_notifier.dart';
+import 'package:riverpod_practice/layers/presentation/main/main_frame_view_model.dart';
 
 
 import '../../../../common/constant/app_colors.dart';
@@ -19,7 +19,7 @@ class NavigationBarItemIcon extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(mainFrameNotifierProvider);
+    final state = ref.watch(mainFrameViewModelProvider);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,

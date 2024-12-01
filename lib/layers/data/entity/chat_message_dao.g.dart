@@ -115,13 +115,14 @@ ChatMessageDAO _chatMessageDAODeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = ChatMessageDAO();
-  object.content = reader.readStringOrNull(offsets[0]);
+  final object = ChatMessageDAO(
+    content: reader.readStringOrNull(offsets[0]),
+    messageId: reader.readStringOrNull(offsets[1]),
+    roomId: reader.readStringOrNull(offsets[2]),
+    sender: reader.readStringOrNull(offsets[3]),
+    timestamp: reader.readStringOrNull(offsets[4]),
+  );
   object.id = id;
-  object.messageId = reader.readStringOrNull(offsets[1]);
-  object.roomId = reader.readStringOrNull(offsets[2]);
-  object.sender = reader.readStringOrNull(offsets[3]);
-  object.timestamp = reader.readStringOrNull(offsets[4]);
   return object;
 }
 

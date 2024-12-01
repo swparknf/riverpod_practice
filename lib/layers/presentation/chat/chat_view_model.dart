@@ -1,14 +1,13 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_practice/layers/domain/usecase/chat/chat_providers.dart';
 import '../../../common/common.dart';
 import '../../domain/model/authorization.dart';
 import '../../domain/domain.dart';
 import 'chat_state.dart';
 
-part 'chat_notifier.g.dart';
+part 'chat_view_model.g.dart';
 
 @riverpod
-class ChatNotifier extends _$ChatNotifier {
+class ChatViewModel extends _$ChatViewModel {
 
   /// UseCase 인스턴스
   late final FetchChatMessageUseCase _fetchChatMessageUseCase;

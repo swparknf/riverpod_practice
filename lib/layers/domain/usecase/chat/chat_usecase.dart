@@ -1,4 +1,3 @@
-import '../../../../common/common.dart';
 import '../../domain.dart';
 import '../base.dart';
 
@@ -6,8 +5,7 @@ import '../base.dart';
 class FetchChatMessageUseCase implements UseCase<List<ChatMessage>, void> {
   final ChatRepository _chatRepository;
 
-  FetchChatMessageUseCase([ChatRepository? chatRepository])
-      : _chatRepository = chatRepository ?? locator();
+  FetchChatMessageUseCase(this._chatRepository);
 
   @override
   Future<List<ChatMessage>> execute() {
@@ -19,8 +17,7 @@ class FetchChatMessageUseCase implements UseCase<List<ChatMessage>, void> {
 class AddChatMessageUseCase implements ParamUseCase<void, List<ChatMessage>> {
   final ChatLocalRepository _chatRepository;
 
-  AddChatMessageUseCase([ChatLocalRepository? chatRepository])
-      : _chatRepository = chatRepository ?? locator();
+  AddChatMessageUseCase(this._chatRepository);
 
   @override
   Future<void> execute(List<ChatMessage> messages) {
@@ -32,8 +29,7 @@ class AddChatMessageUseCase implements ParamUseCase<void, List<ChatMessage>> {
 class GetAllChatMessageUseCase implements UseCase<List<ChatMessage>, void> {
   final ChatLocalRepository _chatRepository;
 
-  GetAllChatMessageUseCase([ChatLocalRepository? chatRepository])
-      : _chatRepository = chatRepository ?? locator();
+  GetAllChatMessageUseCase(this._chatRepository);
 
   @override
   Future<List<ChatMessage>> execute() {

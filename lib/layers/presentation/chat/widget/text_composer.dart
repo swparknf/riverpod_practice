@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/common/common.dart';
 
-import '../chat_notifier.dart';
+import '../chat_view_model.dart';
+
 
 class TextComposer extends ConsumerStatefulWidget {
   const TextComposer({
@@ -78,7 +79,7 @@ class _TextComposerState extends ConsumerState<TextComposer> {
         ),
         onPressed: () {
           if (_controller.text.isNotEmpty) {
-            ref.read(chatNotifierProvider.notifier)
+            ref.read(chatViewModelProvider.notifier)
                 .sendMessage(_controller.text);
             _controller.clear();
           }

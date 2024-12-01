@@ -1,5 +1,3 @@
-
-import '../../../../common/common.dart';
 import '../../domain.dart';
 import '../base.dart';
 
@@ -7,8 +5,7 @@ import '../base.dart';
 class FetchUsersUseCase implements UseCase<List<User>, void> {
   final UserRepository _userRepository;
 
-  FetchUsersUseCase([UserRepository? userRepository])
-      : _userRepository = userRepository ?? locator();
+  FetchUsersUseCase(this._userRepository);
 
   @override
   Future<List<User>> execute() {

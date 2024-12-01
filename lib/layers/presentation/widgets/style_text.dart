@@ -32,20 +32,23 @@ class StyleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TextStyle 객체를 미리 생성하여 캐시
+    final textStyle = TextStyle(
+      color: color ?? AppColors.textBlack,
+      fontSize: size,
+      fontWeight: fontWeight,
+      decoration: decoration,
+      decorationColor: decorationColor,
+      decorationThickness: decorationThickness,
+    );
+
     return Text(
       text,
       textScaler: const TextScaler.linear(AppDim.scaleFontSize),
       overflow: overflow,
       maxLines: maxLinesCount,
       softWrap: softWrap,
-      style: TextStyle(
-          color: color ?? AppColors.textBlack,
-          fontSize: size,
-          fontWeight: fontWeight,
-          decoration: decoration,
-          decorationColor: decorationColor,
-          decorationThickness: decorationThickness,
-      ),
+      style: textStyle,
       textAlign: align,
     );
   }

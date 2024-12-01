@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../common/common.dart';
 import '../../domain/domain.dart';
 import '../widgets/frame_scaffold.dart';
-import 'main_frame_notifier.dart';
+import 'main_frame_view_model.dart';
 import 'widget/navigation_bar_item_icon.dart';
 
 /// 메인 프레임 화면
@@ -14,7 +14,7 @@ class MainFrameView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state =  ref.watch(mainFrameNotifierProvider);
+    final state =  ref.watch(mainFrameViewModelProvider);
 
     return FrameScaffold(
       appBarTitle: '',
@@ -44,7 +44,7 @@ class MainFrameView extends ConsumerWidget {
             selectedFontSize: 12,
             unselectedFontSize: 12,
             unselectedItemColor: AppColors.darkGrey,
-            onTap: (index) => ref.read(mainFrameNotifierProvider.notifier).onItemTapped(index),
+            onTap: (index) => ref.read(mainFrameViewModelProvider.notifier).onItemTapped(index),
           )),
     );
   }

@@ -1,33 +1,85 @@
-import 'package:get_it/get_it.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../layers/data/data.dart';
 import '../../layers/domain/domain.dart';
 
-/// getIt, inject, locator
-final locator = GetIt.instance;
+part 'di.g.dart';
+// isar -----------------------------------------------------------------------
+final isarProvider = Provider<Isar>((ref) {
+  throw UnimplementedError(); // main에서 isarProvider는 직접 초기화되고 전달되므로, 기본적으로는 사용할 필요가 없음
+});
 
-initLocator() async {
-
-  // await Hive.initFlutter(); // Hive 초기화
-  // Hive.registerAdapter(ChatMessageDAOAdapter()); // Message 모델 어댑터 등록
-  // var chatBox = await Hive.openBox<ChatMessageDAO>('chat'); // Hive Box 열기
-
-  final dir =  await getApplicationDocumentsDirectory();
-  final isar = await Isar.open([ChatMessageDAOSchema],directory: dir.path);
-
-  locator.registerSingleton<LocalDataSource>(LocalDataSource(isar));
-
-  locator.registerLazySingleton<RemoteDataSources>(() => RemoteDataSources());
-
-  locator.registerLazySingleton<UserRepository>(() => UserRepositoryImp(locator<RemoteDataSources>()));
-  locator.registerLazySingleton<MeetingRepository>(() => MeetingRepositoryImp(locator<RemoteDataSources>()));
-  locator.registerLazySingleton<ChatRepository>(() => ChatRemoteRepositoryImp(locator<RemoteDataSources>()));
-  locator.registerLazySingleton<ChatLocalRepository>(() => ChatLocalRepositoryImp(locator<LocalDataSource>()));
-
-  locator.registerLazySingleton<FetchUsersUseCase>(() => FetchUsersUseCase());
-  locator.registerLazySingleton<FetchMeetingRoomUseCase>(() => FetchMeetingRoomUseCase());
-  locator.registerLazySingleton<FetchChatMessageUseCase>(() => FetchChatMessageUseCase());
-  locator.registerLazySingleton<AddChatMessageUseCase>(() => AddChatMessageUseCase());
-  locator.registerLazySingleton<GetAllChatMessageUseCase>(() => GetAllChatMessageUseCase());
+// data_sources ----------------------------------------------------------------
+@riverpod
+RemoteDataSources remoteDataSources(Ref ref) {
+  return RemoteDataSources();
 }
+
+@riverpod
+LocalDataSource localDataSources(Ref ref) {
+  final localDB =  ref.watch(isarProvider);
+  return LocalDataSource(localDB);
+}
+
+
+// repository ------------------------------------------------------------------
+@riverpod
+UserRepository userRepository(Ref ref){
+  final remote = ref.watch(remoteDataSourcesProvider);
+  return UserRepositoryImp(remote);
+}
+
+@riverpod
+MeetingRepository meetingRepository(Ref ref){
+  final remote = ref.watch(remoteDataSourcesProvider);
+  return MeetingRepositoryImp(remote);
+}
+
+@riverpod
+ChatRepository chatRepository(Ref ref){
+  final remote = ref.watch(remoteDataSourcesProvider);
+  return ChatRemoteRepositoryImp(remote);
+}
+
+@riverpod
+ChatLocalRepository chatLocalRepository(Ref ref)  {
+  final localDB = ref.watch(localDataSourcesProvider);
+  return ChatLocalRepositoryImp(localDB);
+}
+
+
+// use case --------------------------------------------------------------------
+@riverpod
+FetchUsersUseCase fetchUsersUseCase(Ref ref) {
+  final repository = ref.watch(userRepositoryProvider);
+  return FetchUsersUseCase(repository);
+}
+
+@riverpod
+FetchMeetingRoomUseCase fetchMeetingRoomUseCase(Ref ref) {
+  final repository = ref.watch(meetingRepositoryProvider);
+  return FetchMeetingRoomUseCase(repository);
+}
+
+@riverpod
+FetchChatMessageUseCase fetchChatMessageUseCase(Ref ref) {
+  final repository = ref.watch(chatRepositoryProvider);
+  return FetchChatMessageUseCase(repository);
+}
+
+@riverpod
+AddChatMessageUseCase addChatMessageUseCase(Ref ref)  {
+  final repository = ref.watch(chatLocalRepositoryProvider);
+  return AddChatMessageUseCase(repository);
+}
+
+@riverpod
+GetAllChatMessageUseCase getAllChatMessageUseCase(Ref ref)  {
+  final repository =  ref.watch(chatLocalRepositoryProvider);
+  return GetAllChatMessageUseCase(repository);
+}
+
+
+
+

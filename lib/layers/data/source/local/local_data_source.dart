@@ -1,6 +1,5 @@
 import 'package:isar/isar.dart';
 
-import '../../../../common/common.dart';
 import '../../../domain/model/chat_message.dart';
 import '../../data.dart';
 
@@ -8,7 +7,7 @@ import '../../data.dart';
 class LocalDataSource {
   final Isar _isar;
 
-  LocalDataSource([Isar? isar]) : _isar = isar ?? locator();
+  LocalDataSource(this._isar);
 
   Future<void> addMessage(ChatMessageDAO dao) async {
     await _isar.writeTxn(() async {

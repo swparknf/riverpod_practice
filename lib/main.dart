@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:riverpod_practice/layers/data/data.dart';
 
 import 'common/common.dart';
 
@@ -16,18 +19,23 @@ void main() async {
   /// 플랫폼 채널과 통신(네이티브 코드와 플러간 통신을 위해 플랫폼 채널을 설정 하는 경우)
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initialize the locator
-  await initLocator();
-
   /// Initialize
   await initializeDateFormatting();
 
   /// Initialize Authorization
   Authorization();
 
+  /// Isar 데이터베이스를 초기화합니다.
+  final directory = await getApplicationDocumentsDirectory();
+  final isar = await Isar.open([ChatMessageDAOSchema], directory: directory.path); // User 모델을 로드합니다
+
   /// 루트 위젯을 providerScope로 감싸서 하위 위젯트리에서
   /// Provider 객체에 접근할 수 있도록 한다.
-  runApp(const ProviderScope(child: App(),));
+  runApp(ProviderScope(
+    overrides: [
+      isarProvider.overrideWithValue(isar),
+    ],
+    child: const App(),));
 }
 
 class App extends StatelessWidget {

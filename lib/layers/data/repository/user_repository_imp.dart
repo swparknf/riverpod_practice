@@ -1,4 +1,3 @@
-import 'package:riverpod_practice/common/common.dart';
 import 'package:riverpod_practice/layers/data/mapper/user_mapper.dart';
 import 'package:riverpod_practice/layers/domain/model/user.dart';
 
@@ -8,8 +7,7 @@ import '../source/source.dart';
 class UserRepositoryImp implements UserRepository {
   final RemoteDataSources _remoteDataSource;
 
-  UserRepositoryImp([RemoteDataSources? dataSource])
-      : _remoteDataSource = dataSource ?? locator();
+  UserRepositoryImp(this._remoteDataSource);
 
   @override
   Future<List<User>> fetchUsers() async {

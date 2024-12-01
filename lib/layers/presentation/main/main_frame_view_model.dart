@@ -4,10 +4,10 @@ import 'package:riverpod_practice/layers/presentation/user/user_list_view.dart';
 
 import 'main_frame_state.dart';
 
-part 'main_frame_notifier.g.dart';
+part 'main_frame_view_model.g.dart';
 
 @riverpod
-class MainFrameNotifier extends _$MainFrameNotifier {
+class MainFrameViewModel extends _$MainFrameViewModel {
 
   @override
   MainFrameState build() {

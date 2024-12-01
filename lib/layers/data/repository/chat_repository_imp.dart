@@ -1,13 +1,10 @@
-import 'package:riverpod_practice/common/common.dart';
-
 import '../../domain/domain.dart';
 import '../data.dart';
 
 class ChatRemoteRepositoryImp implements ChatRepository {
   final RemoteDataSources _remoteDataSource;
 
-  ChatRemoteRepositoryImp([RemoteDataSources? dataSource])
-      : _remoteDataSource = dataSource ?? locator();
+  ChatRemoteRepositoryImp(this._remoteDataSource);
 
   @override
   Future<List<ChatMessage>> fetchChatMessage() async {
@@ -24,8 +21,7 @@ class ChatRemoteRepositoryImp implements ChatRepository {
 class ChatLocalRepositoryImp implements ChatLocalRepository{
   final LocalDataSource _localDataSource;
 
-  ChatLocalRepositoryImp([LocalDataSource? dataSource])
-      : _localDataSource = dataSource ?? locator();
+  ChatLocalRepositoryImp(this._localDataSource);
 
   @override
   Future<void> addMessage(List<ChatMessage> messages) async {

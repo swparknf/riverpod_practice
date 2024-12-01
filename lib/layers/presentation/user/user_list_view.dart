@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_practice/layers/presentation/user/user_list_notifier.dart';
+import 'package:riverpod_practice/layers/presentation/user/user_list_view_model.dart';
 import 'package:riverpod_practice/layers/presentation/user/widget/user_tile.dart';
 import 'package:riverpod_practice/layers/presentation/widgets/future_handler.dart';
 
@@ -20,20 +20,20 @@ class _UserListViewState extends ConsumerState<UserListView> {
     /// userListNotifierProvider.notifier 상태변경 로직에만 접근
     /// UI와의 불필요한 재빌드 방지
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(userListNotifierProvider.notifier).fetchUserList();
+      ref.read(userListViewModelProvider.notifier).fetchUserList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     // 상태를 watch하여 UI에 반영
-    final state = ref.watch(userListNotifierProvider);
+    final state = ref.watch(userListViewModelProvider);
 
     return FutureHandler(
       isLoading: state.isLoading,
       isError: state.isError,
       errorMessage: state.errorMessage,
-      onRetry: () => ref.read(userListNotifierProvider.notifier).onRetry(),
+      onRetry: () => ref.read(userListViewModelProvider.notifier).onRetry(),
       child: Column(
         children: [
           Expanded(

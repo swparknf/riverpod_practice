@@ -2,14 +2,14 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_practice/layers/domain/domain.dart';
 
-import '../../domain/usecase/meeting/meeting_providers.dart';
+import '../../../common/common.dart';
 import 'meeting_room_state.dart';
 
-part 'meeting_room_list_notifier.g.dart';
+part 'meeting_room_list_view_model.g.dart';
 
 
 @riverpod
-class MeetingRoomListNotifier extends _$MeetingRoomListNotifier {
+class MeetingRoomListViewModel extends _$MeetingRoomListViewModel {
   /// 회의목록 리스트를 가져오기 위한 UseCase
   late final FetchMeetingRoomUseCase _useCase;
 

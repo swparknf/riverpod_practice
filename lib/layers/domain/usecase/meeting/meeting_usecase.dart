@@ -1,4 +1,3 @@
-import '../../../../common/common.dart';
 import '../../domain.dart';
 import '../base.dart';
 
@@ -6,8 +5,7 @@ import '../base.dart';
 class FetchMeetingRoomUseCase implements UseCase<List<MeetingRoom>, void> {
   final MeetingRepository _meetingRepository;
 
-  FetchMeetingRoomUseCase([MeetingRepository? meetingRepository])
-      : _meetingRepository = meetingRepository ?? locator();
+  FetchMeetingRoomUseCase(this._meetingRepository);
 
   @override
   Future<List<MeetingRoom>> execute() {

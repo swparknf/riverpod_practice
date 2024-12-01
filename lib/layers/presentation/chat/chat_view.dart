@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_practice/layers/presentation/widgets/future_handler.dart';
 
 import '../widgets/frame_scaffold.dart';
-import 'chat_notifier.dart';
+import 'chat_view_model.dart';
 import 'widget/message_list.dart';
 import 'widget/text_composer.dart';
 
@@ -27,14 +27,14 @@ class _ChatViewState extends ConsumerState<ChatView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(chatNotifierProvider.notifier).initRoomId(widget.roomId);
-      ref.read(chatNotifierProvider.notifier).fetchChatMessageList();
+      ref.read(chatViewModelProvider.notifier).initRoomId(widget.roomId);
+      ref.read(chatViewModelProvider.notifier).fetchChatMessageList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-   final state = ref.watch(chatNotifierProvider);
+   final state = ref.watch(chatViewModelProvider);
 
     return FrameScaffold(
       appBarTitle: widget.title,
@@ -44,7 +44,7 @@ class _ChatViewState extends ConsumerState<ChatView> {
         isLoading: state.isLoading,
         isError: state.isError,
         errorMessage: state.errorMessage,
-        onRetry: ref.read(chatNotifierProvider.notifier).onRetry,
+        onRetry: ref.read(chatViewModelProvider.notifier).onRetry,
         child: Column(
           children: [
             /// 문자 리스트(말풍선 리스트)
